@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const db =
-  "mongodb+srv://admin:3vfxMVFJaY05muyl@cluster0-linf1.mongodb.net/CRMAPP?retryWrites=true&w=majority";
+const key = require("../sc");
+const db = `mongodb+srv://admin:${key}@cluster0-linf1.mongodb.net/CRMAPP?retryWrites=true&w=majority`;
+
 const connectDB = async () => {
   try {
     await mongoose.connect(db, {
