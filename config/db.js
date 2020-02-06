@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
-const key = require("../sc");
-const db = `mongodb+srv://admin:${key}@cluster0-linf1.mongodb.net/CRMAPP?retryWrites=true&w=majority`;
-
 const connectDB = async () => {
+  const mongoose = require("mongoose");
+  const db = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-linf1.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
   try {
     await mongoose.connect(db, {
       useNewUrlParser: true,
@@ -10,7 +8,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       useFindAndModify: false
     });
-    console.log("Mongo Atlas is ready");
+    console.log("Mongo Atlas server is ready");
   } catch (error) {
     console.log(error.message);
     process.exit(1);
