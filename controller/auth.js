@@ -16,7 +16,10 @@ exports.postRegister = async (req, res) => {
   //let userCheck = new user;
   let userCheck = await user.findOne({ email });
 
-  if (userCheck) res.json({ status: "failed", message: "Already in use!" });
+  if (userCheck) {
+    res.json({ status: "failed", message: "Already in use!" });
+    return;
+  }
 
   pass = await bcrypt.hash(pass, 10);
 
