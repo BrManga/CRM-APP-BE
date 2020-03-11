@@ -10,6 +10,7 @@ const auth = require("../middleware/auth");
 //localhost:5000/api/dashboard/
 router.get("/", auth.checkAuth, dashboard.home);
 
+router.post("/newPerson", auth.checkAuth, dashboard.newPerson);
 /* router.get('/edit', (req, res) => {
     console.log('hello Bora');
         res.json({message:`Hello Bilal! your id is ${req.userId}`});

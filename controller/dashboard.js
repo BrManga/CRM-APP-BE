@@ -5,3 +5,8 @@ exports.home = (req, res) => {
     message: `Hello Bilal! your id is ${req.userId}`
   });
 };
+
+exports.newPerson = (req, res) => {
+  console.log(req.body);
+  res.json({ status: "success", message: "Your request has been received" });
+};
