@@ -16,4 +16,5 @@ router.post("/newPerson", auth.checkAuth, dashboard.newPerson);
         res.json({message:`Hello Bilal! your id is ${req.userId}`});
 }); */
 
+
 module.exports = router;

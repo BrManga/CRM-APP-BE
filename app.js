@@ -1,15 +1,19 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const connectDB = require("./config/db");
 const user = require("./model/userSchema");
 const bcrypt = require("bcrypt");
+const bodyParser = require('body-parser');
 require("dotenv").config();
 
 //let currentUserId;
 
 //DB Connection
 connectDB();
-
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+app.use(express.static(path.join(__dirname + "/public")));
 //Body parser middleware of Express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
