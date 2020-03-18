@@ -15,6 +15,9 @@ router.post("/newPerson", auth.checkAuth, dashboard.newPerson);
     console.log('hello Bora');
         res.json({message:`Hello Bilal! your id is ${req.userId}`});
 }); */
-
+router.post("/dropzone", (req, res) => {
+  console.log("info here", req.body);
+res.send({status:"done", data:req.body})
+});
 
 module.exports = router;

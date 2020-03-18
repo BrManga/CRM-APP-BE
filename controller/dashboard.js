@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage }).single();
+var upload = multer({ storage: storage }).single("file");
 
 exports.home = (req, res) => {
   console.log("hello Bora");
@@ -24,13 +24,14 @@ exports.newPerson = (req, res) => {
   console.log("req", JSON.stringify(req.body));
   upload(req, res, err => {
     if (err instanceof multer.MulterError) {
-      console.log("req", req.body);
+      console.log("req from backend", req.body);
       // A Multer error occurred when uploading.
       console.log(err);
     } else if (err) {
       // An unknown error occurred when uploading.
       console.log(err);
     }
+    console.log("controller", req.body);
   });
 
   res.json({ status: "success", message: "Your request has been received" });
