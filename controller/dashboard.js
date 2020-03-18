@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("path");
+const Contacts = require("../model/contactsSchema");
 let fileName;
 
 const storage = multer.diskStorage({
@@ -21,7 +22,7 @@ exports.home = (req, res) => {
 };
 
 exports.newPerson = (req, res) => {
-  console.log("req", JSON.stringify(req.body));
+  //console.log("req", JSON.stringify(req.body));
   upload(req, res, err => {
     if (err instanceof multer.MulterError) {
       console.log("req from backend", req.body);
@@ -31,8 +32,33 @@ exports.newPerson = (req, res) => {
       // An unknown error occurred when uploading.
       console.log(err);
     }
-    console.log("controller", req.body);
+    const { name, email, phone, notes } = req.body;
+    const contacts = new Contacts({
+      referanceId: req.userId,
+      avatar: fileName,
+      name,
+      email,
+      phone,
+      notes
+    })
+      .save()
+      .then((result, err) => {
+
+        if (err) {
+          res.json({ status: "failed", message: err });
+        } else {
+          Contacts.find({ referanceId: req.userId }).then((data, err) => {
+            if (err) {
+              res.json({ status: "failed", message: err });
+            } else {
+              res.json({ status: "success", message: data });
+            }
+          });
+        }
+      });
+
+    //console.log("controller", req.body);
   });
 
-  res.json({ status: "success", message: "Your request has been received" });
+  //res.json({ status: "success", message: "Your request has been received" });
 };
