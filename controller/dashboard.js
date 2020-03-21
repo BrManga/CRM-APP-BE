@@ -14,10 +14,12 @@ const storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single("file");
 
 exports.home = (req, res) => {
-  console.log("hello Bora");
-  res.json({
-    status: "success",
-    message: `Hello Bilal! your id is ${req.userId}`
+  Contacts.find({ referanceId: req.userId }).then((data, err) => {
+    if (err) {
+      res.json({ status: "failed", message: err });
+    } else {
+      res.json({ status: "success", message: data });
+    }
   });
 };
 
@@ -43,7 +45,6 @@ exports.newPerson = (req, res) => {
     })
       .save()
       .then((result, err) => {
-
         if (err) {
           res.json({ status: "failed", message: err });
         } else {
@@ -61,4 +62,39 @@ exports.newPerson = (req, res) => {
   });
 
   //res.json({ status: "success", message: "Your request has been received" });
+};
+
+exports.deletePerson = (req, res) => {
+  //  console.log('deletePerson function in BE', req.body.id);
+
+  Contacts.findOneAndRemove({ _id: req.body.id }).then((result, err) => {
+    if (err) {
+      res.json({ status: "failed", message: err });
+    } else {
+      Contacts.find({ referanceId: req.userId }).then((data, err) => {
+        if (err) {
+          res.json({ status: "failed", message: err });
+        } else {
+          res.json({ status: "success", message: data });
+        }
+      });
+    }
+  });
+};
+exports.savePerson = (req, res) => {
+  console.log("FROM BE savePerson function", req.body);
+
+  Contacts.findOneAndUpdate({ _id: req.body.id }, req.body.data).then((result, err) => {
+    if (err) {
+      res.json({ status: "failed", message: err });
+    } else {
+      Contacts.find({ referanceId: req.userId }).then((data, err) => {
+        if (err) {
+          res.json({ status: "failed", message: err });
+        } else {
+          res.json({ status: "success", message: data });
+        }
+      });
+    }
+  }); 
 };
