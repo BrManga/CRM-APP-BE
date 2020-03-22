@@ -18,7 +18,7 @@ router.post("/savePerson", auth.checkAuth, dashboard.savePerson);
         res.json({message:`Hello Bilal! your id is ${req.userId}`});
 }); */
 router.post("/dropzone", (req, res) => {
-  console.log("info here", req.body);
+  //console.log("info here", req.body);
   res.send({ status: "done", data: req.body });
 });
 

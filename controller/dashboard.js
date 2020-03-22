@@ -27,7 +27,7 @@ exports.newPerson = (req, res) => {
   //console.log("req", JSON.stringify(req.body));
   upload(req, res, err => {
     if (err instanceof multer.MulterError) {
-      console.log("req from backend", req.body);
+      //console.log("req from backend", req.body);
       // A Multer error occurred when uploading.
       console.log(err);
     } else if (err) {
@@ -82,7 +82,7 @@ exports.deletePerson = (req, res) => {
   });
 };
 exports.savePerson = (req, res) => {
-  console.log("FROM BE savePerson function", req.body);
+  //console.log("FROM BE savePerson function", req.body);
 
   Contacts.findOneAndUpdate({ _id: req.body.id }, req.body.data).then((result, err) => {
     if (err) {

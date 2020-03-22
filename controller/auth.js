@@ -55,7 +55,7 @@ exports.postLogin = (req, res) => {
         //console.log(isPassCorrect);
         if (isPassCorrect) {
           //Create Token
-          console.log(result);
+          //console.log(result);
           const token = await signToken(result.id);
           res.json({
             status: "success",
